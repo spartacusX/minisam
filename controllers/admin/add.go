@@ -3,7 +3,7 @@ package admin
 import (
 	"fmt"
 	"github.com/astaxie/beego"
-	m "minisam/models"
+	m "github.com/spartacusX/minisam/models"
 	"strconv"
 	//"strings"
 )

@@ -14,10 +14,11 @@ type SWCounter struct {
 }
 
 var TABLE = "AMDemo94en.dbo.amSoftwareCounter"
+var CNXSTRING = "dsn=AMDemo94en;uid=sa;pwd=sasa"
 
 func CounterList() (ctlist []SWCounter, err error) {
 	p := []SWCounter{}
-	db, err := sql.Open("odbc", "dsn=AMDemo94en;user id=sa;password=sasa")
+	db, err := sql.Open("odbc", CNXSTRING)
 	if err != nil {
 		fmt.Println("sql.Open failed. %v", err)
 		return p, err
@@ -46,7 +47,7 @@ func CounterList() (ctlist []SWCounter, err error) {
 }
 
 func AddCounter(c SWCounter) (err error) {
-	db, err := sql.Open("odbc", "dsn=AMDemo94en;user id=sa;password=sasa")
+	db, err := sql.Open("odbc", CNXSTRING)
 	if err != nil {
 		fmt.Println("sql.Open failed. %v", err)
 		return err

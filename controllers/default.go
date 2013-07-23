@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	m "minisam/models"
+	m "github.com/spartacusX/minisam/models"
 )
 
 type MainController struct {

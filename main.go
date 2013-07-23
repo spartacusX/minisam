@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/astaxie/beego"
-	"minisam/controllers"
-	"minisam/controllers/admin"
+	"github.com/spartacusX/minisam/controllers"
+	"github.com/spartacusX/minisam/controllers/admin"
 )
 
 func main() {
