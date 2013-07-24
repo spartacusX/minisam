@@ -9,6 +9,7 @@ import (
 func main() {
 	beego.RegisterController("/", &controllers.MainController{})
 	beego.RegisterController("/new", &admin.AddController{})
+	beego.RegisterController("/unlock", &admin.UnlockController{})
 
 	beego.Run()
 }

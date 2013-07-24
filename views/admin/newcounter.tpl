@@ -32,7 +32,7 @@
 		</div>
 	</div>
 </div>
-<div class="btn-toolbar">
+		<div class="btn-toolbar">
         	<button class="btn btn-primary" type="submit"><i class="icon-save"></i> Save </button>
 		</div>
 </form>

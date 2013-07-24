@@ -13,14 +13,27 @@ type SWCounter struct {
 	InstallationNum int
 }
 
+var DRIVER = "odbc"
 var TABLE = "AMDemo94en.dbo.amSoftwareCounter"
+var TABLE_EMPLDEPT = "AMDemo94en.itam.amEmplDept"
 var CNXSTRING = "dsn=AMDemo94en;uid=sa;pwd=sasa"
+
+/**************************************************************
+/ Open database, not really connect, just regist driver and dsn
+/**************************************************************/
+func sqlConnect() (db *sql.DB, err error) {
+	db, err = sql.Open(DRIVER, CNXSTRING)
+	if err != nil {
+		fmt.Println("sql.Open failed. %v", err)
+		return nil, err
+	}
+	return db, nil
+}
 
 func CounterList() (ctlist []SWCounter, err error) {
 	p := []SWCounter{}
-	db, err := sql.Open("odbc", CNXSTRING)
+	db, err := sqlConnect()
 	if err != nil {
-		fmt.Println("sql.Open failed. %v", err)
 		return p, err
 	}
 
@@ -47,9 +60,8 @@ func CounterList() (ctlist []SWCounter, err error) {
 }
 
 func AddCounter(c SWCounter) (err error) {
-	db, err := sql.Open("odbc", CNXSTRING)
+	db, err := sqlConnect()
 	if err != nil {
-		fmt.Println("sql.Open failed. %v", err)
 		return err
 	}
 
@@ -64,6 +76,24 @@ func AddCounter(c SWCounter) (err error) {
 
 	rowAffected, _ := res.RowsAffected()
 	fmt.Println("Affected rows: %v", rowAffected)
+
+	return nil
+}
+
+func UnlockAmUser(strUser string) (err error) {
+	db, err := sqlConnect()
+	if err != nil {
+		return err
+	}
+
+	defer db.Close()
+
+	fmt.Println(strUser)
+	_, err = db.Exec("update "+TABLE_EMPLDEPT+" set  LoginFailures=0, seLoginStatus=0 where Name=?", strUser)
+	if err != nil {
+		fmt.Println("db.Exec failed. %v.", err)
+		return err
+	}
 
 	return nil
 }
