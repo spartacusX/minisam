@@ -7,8 +7,11 @@ import (
 )
 
 func main() {
+	//beego.SetStaticPath("/myjs", "static/myjs")
+
 	beego.RegisterController("/", &controllers.MainController{})
 	beego.RegisterController("/new", &admin.AddController{})
+	beego.RegisterController("/dashboard", &admin.DashBoardController{})
 	beego.RegisterController("/unlock", &admin.UnlockController{})
 
 	beego.Run()

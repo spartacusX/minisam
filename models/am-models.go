@@ -13,10 +13,19 @@ type SWCounter struct {
 	InstallationNum int
 }
 
-var DRIVER = "odbc"
 var TABLE = "AMDemo94en.dbo.amSoftwareCounter"
+
 var TABLE_EMPLDEPT = "AMDemo94en.itam.amEmplDept"
-var CNXSTRING = "dsn=AMDemo94en;uid=sa;pwd=sasa"
+
+const DRIVER = "odbc"
+
+const DB_SCHEME = "AMDemo94en.itam"
+
+const CNXSTRING = "dsn=AMDemo94en;uid=sa;pwd=sasa"
+
+const TBL_SOFTWARECOUNTER = "amSoftLicCounter"
+
+const TBL_COUNTERRESULT = "amRightsUsesCount"
 
 /**************************************************************
 / Open database, not really connect, just regist driver and dsn
@@ -30,8 +39,8 @@ func sqlConnect() (db *sql.DB, err error) {
 	return db, nil
 }
 
-func CounterList() (ctlist []SWCounter, err error) {
-	p := []SWCounter{}
+func CounterList() (ctlist []SoftWareCounter, err error) {
+	p := []SoftWareCounter{}
 	db, err := sqlConnect()
 	if err != nil {
 		return p, err
@@ -39,15 +48,18 @@ func CounterList() (ctlist []SWCounter, err error) {
 
 	defer db.Close()
 
-	rows, err := db.Query("select * from " + TABLE)
+	rows, err := db.Query("select name, bInternal, dLicUseRights, dEntCount, dSoftInstallCount, dUnusedInstall from " + DB_SCHEME + "." + TBL_SOFTWARECOUNTER)
 	if err != nil {
 		fmt.Println("db.Query failed. %v", err)
 		return p, err
 	}
 
+	// Escape the first record( NULL record)
+	rows.Next()
+
 	for rows.Next() {
-		var r SWCounter
-		err := rows.Scan(&r.Id, &r.Model, &r.LicenseNum, &r.InstallationNum)
+		var r SoftWareCounter
+		err := rows.Scan(&r.Name, &r.IsInternal, &r.LicUseRights, &r.EntCount, &r.SoftInstallCount, &r.UnusedInstall)
 		if err != nil {
 			fmt.Println("rows.Scan failed. %v", err)
 			return p, err
@@ -55,7 +67,7 @@ func CounterList() (ctlist []SWCounter, err error) {
 			p = append(p, r)
 		}
 	}
-	fmt.Println(p)
+	//fmt.Println(p)
 	return p, nil
 }
 
