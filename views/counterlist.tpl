@@ -1,14 +1,15 @@
+<section id="CountResult">
 <div class="container-fluid">
 	<div class="row-fluid">
-		<div class="span12">
-			<table class="table table-hover table-striped">
+		<div class="span2">
+
+		</div>
+		<div class="span7">
+			<table class="table table-hover table-bordered table-striped">
 				<thead>
 					<tr class="caption">
 						<th>
 							Name
-						</th>
-						<th>
-							Do not include in the compliance reports
 						</th>
 						<th>
 							Rights count
@@ -31,9 +32,6 @@
 							<a href="javascript:" onclick="javascritp:onShowDashBoard();">{{.Name}}</a>
 						</td>
 						<td>
-							{{.IsInternal}}
-						</td>
-						<td>
 							{{.LicUseRights}}
 						</td>
 						<td>
@@ -48,13 +46,81 @@
 					</tr>
 					{{end}}
 				</tbody>
-			</table> <button class="btn btn-info" type="button" onclick="location.href='http://localhost:8080/new'">New</button>
-			<a href="#myModal" role="button" class="btn" data-toggle="modal">NewCounter</a>
+			</table> <!-- <button class="btn btn-info" type="button" onclick="location.href='http://localhost:8080/new'">New</button>
+			<a href="#myModal" role="button" class="btn" data-toggle="modal">NewCounter</a> -->
+
+			<div class="pagination offset4">
+			  <ul>
+			    <li><a href="#">Prev</a></li>
+			    {{if .MinPages > 0}}
+			    	<li><a href="/?PageNum=0">1</a></li>
+			    {{end}}
+			    {{if .MinPages > 1}}
+			    	<li><a href="/?PageNum=1">2</a></li>
+			    {{end}}
+			    {{if .MinPages > 2}}
+			    	<li><a href="/?PageNum=2">3</a></li>
+			    {{end}}
+			    <li><a href="">Next</a></li>
+			  </ul>
+			</div>
 		</div>
+
+		
+
 	</div>
 </div>
+</section>
 
+<section id="Dashboard">
+	<div id="xxContainer1"></div>
+</section>
+<script>
+
+</script>
 <script type="text/javascript">
+    // Build the chart
+    var chart1 = new Highcharts.Chart({
+        chart: {
+            renderTo: 'xxContainer1',
+            type: 'bar',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Browser market shares at a specific website, 2010'
+        },
+        tooltip: {
+          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: [
+                ['EntitleRate',   {{.EntitleRate}}],
+                {
+                    name: 'LicenseRate',
+                    y: {{.LicenseRate}},
+                    sliced: true,
+                    selected: true
+                },
+                ['InstallationRate',   {{.InstallationRate}}],
+                ['UnUsedInstallationRate',     {{.UnUsedInstallationRate}}]
+            ]
+        }]
+    });
+
 	function onShowDashBoard(){
 		var str=document.getElementById("qqq").value;
 		location.href = "http://localhost:8080/dashboard?Name=xxx&LicUseRights=30&EntCount=10&SoftInstallCount=20&UnusedInstall=10";

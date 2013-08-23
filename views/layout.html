@@ -62,16 +62,26 @@
 
       <hr>
 
-
+    <div class="span3 bs-docs-sidebar">
+        <ul class="nav nav-list bs-docs-sidenav affix">
+          <li><a href="#CountResult"><i class="icon-chevron-right"></i> 概览</a></li>
+          <li><a href="#Dashboard"><i class="icon-chevron-right"></i> 过渡效果</a></li>
+          <li><a href="#modals"><i class="icon-chevron-right"></i> 模态对话框</a></li>
+          <li><a href="#dropdowns"><i class="icon-chevron-right"></i> 下拉菜单</a></li>
+          <li><a href="#scrollspy"><i class="icon-chevron-right"></i> 滚动监听</a></li>
+          <li><a href="#tabs"><i class="icon-chevron-right"></i> 标签页</a></li>
+          <li><a href="#tooltips"><i class="icon-chevron-right"></i> 工具提示</a></li>
+          <li><a href="#popovers"><i class="icon-chevron-right"></i> 弹出提示</a></li>
+          <li><a href="#alerts"><i class="icon-chevron-right"></i> 警告框</a></li>
+          <li><a href="#buttons"><i class="icon-chevron-right"></i> 按钮</a></li>
+          <li><a href="#collapse"><i class="icon-chevron-right"></i> 折叠</a></li>
+          <li><a href="#carousel"><i class="icon-chevron-right"></i> 轮播</a></li>
+          <li><a href="#typeahead"><i class="icon-chevron-right"></i> 输入提示</a></li>
+          <li><a href="#affix"><i class="icon-chevron-right"></i> 附加导航</a></li>
+        </ul>
+    </div>
     <div class="container-fluid">
-        <div id="xxContainer" height="100" width="100"></div>
-        <div id="xxContainer1" height="450" width="450"></div>
-        <div id="xxContainer2" height="450" width="450"></div>
-        <div id="xxContainer3" height="450" width="450"></div>
       <div class="row-fluid">
-      
-      <canvas id="xxCanvas" height="450" width="450">aaaaa</canvas>
-     <canvas id="ooCanvas" height="450" width="450">aaaaa</canvas>
        {{.LayoutContent}}
         <!-- footer -->
         <footer>
@@ -83,222 +93,6 @@
     </div>
 
     </div><!--/.fluid-container-->
-
-   
-  <script type="text/javascript">
-    var pieData = [
-        {
-          value: 30,
-          color:"#F38630"
-        },
-        {
-          value : 50,
-          color : "#E0E4CC"
-        },
-        {
-          value : 100,
-          color : "#69D2E7"
-        }
-      
-      ];
-    var myPie = new Chart(document.getElementById("xxCanvas").getContext("2d")).Pie(pieData);
-
-    var barChartData = {
-      labels : ["January","February","March","April","May","June","July"],
-      datasets : [
-        {
-          fillColor : "rgba(220,220,220,0.5)",
-          strokeColor : "rgba(220,220,220,1)",
-          data : [65,59,90,81,56,55,40]
-        },
-        {
-          fillColor : "rgba(151,187,205,0.5)",
-          strokeColor : "rgba(151,187,205,1)",
-          data : [28,48,40,19,96,27,100]
-        }
-      ]
-      
-    }
-
-  var myLine = new Chart(document.getElementById("ooCanvas").getContext("2d")).Bar(barChartData);
-
-      
-      // Build the chart
-        var chart1 = new Highcharts.Chart({
-            chart: {
-                renderTo: 'xxContainer',
-                type: 'bar',
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false
-            },
-            title: {
-                text: 'Browser market shares at a specific website, 2010'
-            },
-            tooltip: {
-              pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: false
-                    },
-                    showInLegend: true
-                }
-            },
-            series: [{
-                type: 'pie',
-                name: 'Browser share',
-                data: [
-                    ['Firefox',   45.0],
-                    ['IE',       26.8],
-                    {
-                        name: 'Chrome',
-                        y: 12.8,
-                        sliced: true,
-                        selected: true
-                    },
-                    ['Safari',    8.5],
-                    ['Opera',     6.2],
-                    ['Others',   0.7]
-                ]
-            }]
-        });
-
-// Build the chart
-        var chart1 = new Highcharts.Chart({
-            chart: {
-                renderTo: 'xxContainer1',
-                type: 'bar',
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false
-            },
-            title: {
-                text: 'Browser market shares at a specific website, 2010'
-            },
-            tooltip: {
-              pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: false
-                    },
-                    showInLegend: true
-                }
-            },
-            series: [{
-                type: 'pie',
-                name: 'Browser share',
-                data: [
-                    ['Firefox',   45.0],
-                    ['IE',       26.8],
-                    {
-                        name: 'Chrome',
-                        y: 12.8,
-                        sliced: true,
-                        selected: true
-                    },
-                    ['Safari',    8.5],
-                    ['Opera',     6.2],
-                    ['Others',   0.7]
-                ]
-            }]
-        });
-
-// Build the chart
-        var chart1 = new Highcharts.Chart({
-            chart: {
-                renderTo: 'xxContainer2',
-                type: 'bar',
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false
-            },
-            title: {
-                text: 'Browser market shares at a specific website, 2010'
-            },
-            tooltip: {
-              pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: false
-                    },
-                    showInLegend: true
-                }
-            },
-            series: [{
-                type: 'pie',
-                name: 'Browser share',
-                data: [
-                    ['Firefox',   45.0],
-                    ['IE',       26.8],
-                    {
-                        name: 'Chrome',
-                        y: 12.8,
-                        sliced: true,
-                        selected: true
-                    },
-                    ['Safari',    8.5],
-                    ['Opera',     6.2],
-                    ['Others',   0.7]
-                ]
-            }]
-        });
-
-// Build the chart
-        var chart1 = new Highcharts.Chart({
-            chart: {
-                renderTo: 'xxContainer3',
-                type: 'bar',
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false
-            },
-            title: {
-                text: 'Browser market shares at a specific website, 2010'
-            },
-            tooltip: {
-              pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: false
-                    },
-                    showInLegend: true
-                }
-            },
-            series: [{
-                type: 'pie',
-                name: 'Browser share',
-                data: [
-                    ['Firefox',   45.0],
-                    ['IE',       26.8],
-                    {
-                        name: 'Chrome',
-                        y: 12.8,
-                        sliced: true,
-                        selected: true
-                    },
-                    ['Safari',    8.5],
-                    ['Opera',     6.2],
-                    ['Others',   0.7]
-                ]
-            }]
-        });
-  </script>
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

@@ -13,6 +13,29 @@ type SWCounter struct {
 	InstallationNum int
 }
 
+type SWStatistic struct {
+	Entitlements        int
+	Licenses            int
+	Installations       int
+	UnUsedInstallations int
+}
+
+func TotalCount(sws *SWStatistic) (count int) {
+	if sws != nil {
+		return sws.Entitlements +
+			sws.Licenses +
+			sws.Installations +
+			sws.UnUsedInstallations
+	}
+	return 0
+}
+
+var statistic SWStatistic
+
+func Statistic() (sws SWStatistic) {
+	return statistic
+}
+
 var TABLE = "AMDemo94en.dbo.amSoftwareCounter"
 
 var TABLE_EMPLDEPT = "AMDemo94en.itam.amEmplDept"
@@ -48,7 +71,12 @@ func CounterList() (ctlist []SoftWareCounter, err error) {
 
 	defer db.Close()
 
-	rows, err := db.Query("select name, bInternal, dLicUseRights, dEntCount, dSoftInstallCount, dUnusedInstall from " + DB_SCHEME + "." + TBL_SOFTWARECOUNTER)
+	strQuery := "SELECT name, bInternal, dLicUseRights, dEntCount, dSoftInstallCount, dUnusedInstall " +
+		" FROM " + DB_SCHEME + "." + TBL_SOFTWARECOUNTER +
+		" WHERE bType = 0 " +
+		" ORDER BY name "
+
+	rows, err := db.Query(strQuery)
 	if err != nil {
 		fmt.Println("db.Query failed. %v", err)
 		return p, err
@@ -64,6 +92,10 @@ func CounterList() (ctlist []SoftWareCounter, err error) {
 			fmt.Println("rows.Scan failed. %v", err)
 			return p, err
 		} else {
+			statistic.Entitlements += r.EntCount
+			statistic.Licenses += r.LicUseRights
+			statistic.Installations += r.SoftInstallCount
+			statistic.UnUsedInstallations += r.UnusedInstall
 			p = append(p, r)
 		}
 	}

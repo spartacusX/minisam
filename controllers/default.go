@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/astaxie/beego"
 	m "github.com/spartacusX/minisam/models"
 )
@@ -8,6 +9,8 @@ import (
 type MainController struct {
 	beego.Controller
 }
+
+const RecordNumPerPage = 20
 
 func (this *MainController) Get() {
 	// crupkg := models.GetCruPkg(this.Ctx.Params[":pkg"])
@@ -32,8 +35,28 @@ func (this *MainController) Get() {
 	// 	this.Data["Content"] = at.Content //template.HTML(string(blackfriday.MarkdownCommon([]byte(at.Content))))
 	// }
 
+	var resultToShow interface{}
 	counterList, _ := m.CounterList()
-	this.Data["Counters"] = counterList
+
+	pageNum, _ := this.GetInt("PageNum")
+	if pageNum < 0 {
+		pageNum = 0
+	}
+	resultToShow = counterList[pageNum*RecordNumPerPage:]
+
+	this.Data["CountResult"] = resultToShow
+
+	var sws = m.Statistic()
+	total := m.TotalCount(&sws)
+	this.Data["TotalRecords"] = len(counterList)
+	this.Data["MinPages"] = (int)(len(counterList) / RecordNumPerPage)
+	this.Data["EntitleRate"] = sws.Entitlements * 100 / total
+	this.Data["LicenseRate"] = sws.Licenses * 100 / total
+	this.Data["InstallationRate"] = sws.Installations * 100 / total
+	this.Data["UnUsedInstallationRate"] = sws.UnUsedInstallations * 100 / total
+
+	fmt.Println(this.Data)
+
 	this.Layout = "layout.html"
 	this.TplNames = "counterlist.tpl"
 }
