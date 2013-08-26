@@ -26,7 +26,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					{{range .Counters}}
+					{{range .CountResult}}
 					<tr>
 						<td id="qqq">
 							<a href="javascript:" onclick="javascritp:onShowDashBoard();">{{.Name}}</a>
@@ -52,15 +52,8 @@
 			<div class="pagination offset4">
 			  <ul>
 			    <li><a href="#">Prev</a></li>
-			    {{if .MinPages > 0}}
-			    	<li><a href="/?PageNum=0">1</a></li>
-			    {{end}}
-			    {{if .MinPages > 1}}
-			    	<li><a href="/?PageNum=1">2</a></li>
-			    {{end}}
-			    {{if .MinPages > 2}}
-			    	<li><a href="/?PageNum=2">3</a></li>
-			    {{end}}
+			    	
+			    	{{.Test}}
 			    <li><a href="">Next</a></li>
 			  </ul>
 			</div>
@@ -79,53 +72,14 @@
 
 </script>
 <script type="text/javascript">
-    // Build the chart
-    var chart1 = new Highcharts.Chart({
-        chart: {
-            renderTo: 'xxContainer1',
-            type: 'bar',
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false
-        },
-        title: {
-            text: 'Browser market shares at a specific website, 2010'
-        },
-        tooltip: {
-          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: false
-                },
-                showInLegend: true
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: 'Browser share',
-            data: [
-                ['EntitleRate',   {{.EntitleRate}}],
-                {
-                    name: 'LicenseRate',
-                    y: {{.LicenseRate}},
-                    sliced: true,
-                    selected: true
-                },
-                ['InstallationRate',   {{.InstallationRate}}],
-                ['UnUsedInstallationRate',     {{.UnUsedInstallationRate}}]
-            ]
-        }]
-    });
+{{.Dashboard}}
 
 	function onShowDashBoard(){
 		var str=document.getElementById("qqq").value;
 		location.href = "http://localhost:8080/dashboard?Name=xxx&LicUseRights=30&EntCount=10&SoftInstallCount=20&UnusedInstall=10";
 	}
 </script>
+
 
 
 <!-- Button to trigger modal -->
