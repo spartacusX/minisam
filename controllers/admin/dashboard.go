@@ -3,10 +3,53 @@ package admin
 import (
 	"fmt"
 	"github.com/astaxie/beego"
-	//m "github.com/spartacusX/minisam/models"
-	//"strconv"
-	//"strings"
+	m "github.com/spartacusX/minisam/models"
+	"html/template"
+	"strconv"
+	"strings"
 )
+
+const DASHBOARD = `    
+    var chart1 = new Highcharts.Chart({
+        chart: {
+            renderTo: 'xxContainer1',
+            type: 'bar',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Software license/installations statistic'
+        },
+        tooltip: {
+          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: [
+                ['EntitleRate',   {{.EntitleRate}}],
+                {
+                    name: 'LicenseRate',
+                    y: {{.LicenseRate}},
+                    sliced: true,
+                    selected: true
+                },
+                ['InstallationRate',   {{.InstallationRate}}],
+                ['UnUsedInstallationRate',     {{.UnUsedInstallationRate}}]
+            ]
+        }]
+    });`
 
 type DashBoardController struct {
 	beego.Controller
@@ -19,21 +62,24 @@ func (this *DashBoardController) Prepare() {
 func (this *DashBoardController) Get() {
 	fmt.Println("Request Method: Get")
 
-	// var counter m.SoftWareCounter
+	m.CounterList()
 
-	// this.Ctx.Request.ParseForm()
-	// counter.Name = this.Ctx.Request.Form.Get("Name")
-	// counter.LicUseRights, _ = strconv.Atoi(this.Ctx.Request.Form.Get("LicUseRights"))
-	// counter.EntCount, _ = strconv.Atoi(this.Ctx.Request.Form.Get("EntCount"))
-	// counter.SoftInstallCount, _ = strconv.Atoi(this.Ctx.Request.Form.Get("SoftInstallCount"))
-	// counter.UnusedInstall, _ = strconv.Atoi(this.Ctx.Request.Form.Get("UnusedInstall"))
-	// beego.Info(this.Ctx.Request.Form)
+	var sws = m.Statistic()
+	total := m.TotalCount(&sws)
 
-	// fmt.Println(counter)
-	//this.Data["Counter"] = counter
-	//this.Layout = "admin/dashboard.html"
-	//this.Data["ChartScript"] = "var myPie = new Chart(document.getElementById(" + "canvas" + ").getContext(" + "2d" + ")).Pie(pieData);"
-	this.TplNames = "dashboard.html"
+	strDash := strings.Replace(DASHBOARD, "{{.EntitleRate}}",
+		strconv.FormatFloat((float64)(sws.Entitlements*100/total), 'f', 1, 64), 1)
+	strDash = strings.Replace(strDash, "{{.LicenseRate}}",
+		strconv.FormatFloat((float64)(sws.Licenses*100/total), 'f', 1, 64), 1)
+	strDash = strings.Replace(strDash, "{{.InstallationRate}}",
+		strconv.FormatFloat((float64)(sws.Installations*100/total), 'f', 1, 64), 1)
+	strDash = strings.Replace(strDash, "{{.UnUsedInstallationRate}}",
+		strconv.FormatFloat((float64)(sws.UnUsedInstallations*100/total), 'f', 1, 64), 1)
+
+	this.Data["Dashboard"] = template.JS(strDash)
+
+	this.Layout = "layout.html"
+	this.TplNames = "dashboard.tpl"
 }
 
 func (this *DashBoardController) Post() {

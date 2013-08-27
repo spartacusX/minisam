@@ -32,6 +32,8 @@ func TotalCount(sws *SWStatistic) (count int) {
 
 var statistic SWStatistic
 
+var ColorLevel = [3]string{"info", "warning", "error"}
+
 func Statistic() (sws SWStatistic) {
 	return statistic
 }
@@ -96,6 +98,18 @@ func CounterList() (ctlist []SoftWareCounter, err error) {
 			statistic.Licenses += r.LicUseRights
 			statistic.Installations += r.SoftInstallCount
 			statistic.UnUsedInstallations += r.UnusedInstall
+
+			switch compliance := r.LicUseRights - r.SoftInstallCount; {
+			case compliance > 5:
+				r.Status = ColorLevel[NORMAL]
+			case compliance >= 0:
+				r.Status = ColorLevel[WARNING]
+			case compliance < 0:
+				r.Status = ColorLevel[ERROR]
+			default:
+				r.Status = ColorLevel[NORMAL]
+			}
+
 			p = append(p, r)
 		}
 	}

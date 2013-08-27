@@ -1,9 +1,5 @@
-<section id="CountResult">
 <div class="container-fluid">
 	<div class="row-fluid">
-		<div class="span2">
-
-		</div>
 		<div class="span7">
 			<table class="table table-hover table-bordered table-striped">
 				<thead>
@@ -12,22 +8,22 @@
 							Name
 						</th>
 						<th>
-							Rights count
+							Rights
 						</th>
 						<th>
-							Entitlements count
+							Entitlements
 						</th>
 						<th>
-							Installations/Utilizations count
+							Installs
 						</th>
 						<th>
-							Unused installations
+							Unused
 						</th>
 					</tr>
 				</thead>
 				<tbody>
 					{{range .CountResult}}
-					<tr>
+					<tr class="{{.Status}}">
 						<td id="qqq">
 							<a href="javascript:" onclick="javascritp:onShowDashBoard();">{{.Name}}</a>
 						</td>
@@ -63,17 +59,8 @@
 
 	</div>
 </div>
-</section>
 
-<section id="Dashboard">
-	<div id="xxContainer1"></div>
-</section>
-<script>
-
-</script>
 <script type="text/javascript">
-{{.Dashboard}}
-
 	function onShowDashBoard(){
 		var str=document.getElementById("qqq").value;
 		location.href = "http://localhost:8080/dashboard?Name=xxx&LicUseRights=30&EntCount=10&SoftInstallCount=20&UnusedInstall=10";

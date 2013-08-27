@@ -48,21 +48,35 @@
             <span class="icon-bar"></span>
           </a>
           <a class="brand" href="#">Software Asset Management</a>
-          <div class="nav-collapse collapse">            
+          <div class="nav-collapse collapse">
+            <ul class="nav" role="navigation">
+              <li class="dropdown">
+                <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Software Counter <b class="caret"></b></a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/">Counter Result</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/dashboard">DashBoard</a></li>                  
+                  <li role="presentation" class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">License Rules</a></li>
+                </ul>
+              </li>
+            </ul>
+            
+
             <ul class="nav">
-              <li class="active"><a href="/">License Rules</a></li>
-              <li><a href="/about">Software Counter</a></li>
               <li><a href="http://www.hp.com">HP Live NetWork</a></li>
               <li><a href="/unlock">Unlock AM User</a></li>
             </ul>
           </div><!--/.nav-collapse -->
+
+          
+
         </div>
       </div>
     </div>
 
       <hr>
 
-    <div class="span3 bs-docs-sidebar">
+<!--     <div class="span3 bs-docs-sidebar">
         <ul class="nav nav-list bs-docs-sidenav affix">
           <li><a href="#CountResult"><i class="icon-chevron-right"></i> 概览</a></li>
           <li><a href="#Dashboard"><i class="icon-chevron-right"></i> 过渡效果</a></li>
@@ -79,7 +93,7 @@
           <li><a href="#typeahead"><i class="icon-chevron-right"></i> 输入提示</a></li>
           <li><a href="#affix"><i class="icon-chevron-right"></i> 附加导航</a></li>
         </ul>
-    </div>
+    </div> -->
     <div class="container-fluid">
       <div class="row-fluid">
        {{.LayoutContent}}
