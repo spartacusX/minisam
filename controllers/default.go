@@ -20,9 +20,10 @@ func (this *MainController) Get() {
 	counterList, _ := m.CounterList()
 
 	pageNum, _ := this.GetInt("PageNum")
-	if pageNum < 0 {
-		pageNum = 0
+	if pageNum < 1 {
+		pageNum = 1
 	}
+	pageNum--
 	if len(counterList) >= (int)(pageNum+1)*RecordNumPerPage {
 		resultToShow = counterList[pageNum*RecordNumPerPage : (pageNum+1)*RecordNumPerPage]
 	} else {
@@ -36,8 +37,8 @@ func (this *MainController) Get() {
 	this.Data["TotalRecords"] = len(counterList)
 
 	var strPageHTML string
-	for i := 0; i < (len(counterList) / RecordNumPerPage); i++ {
-		strPageHTML += `<li><a href="/?PageNum=` + strconv.Itoa(i+1) + `">` + strconv.Itoa(i+1) + `</a></li>`
+	for i := 1; i <= (len(counterList) / RecordNumPerPage); i++ {
+		strPageHTML += `<li><a href="/?PageNum=` + strconv.Itoa(i) + `">` + strconv.Itoa(i) + `</a></li>`
 	}
 	this.Data["Test"] = template.HTML(strPageHTML)
 
