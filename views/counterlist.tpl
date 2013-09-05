@@ -1,8 +1,12 @@
+<div class="row-fluid">
 <table class="table table-hover table-bordered table-striped">
 	<thead>
 		<tr class="caption">
 			<th>
 				<input type="checkbox"></input>
+			</th>
+			<th>
+				Id
 			</th>
 			<th>
 				Name
@@ -27,6 +31,9 @@
 			<td>
 				<img src="static/ico/{{.Status}}.gif"/>
 			</td>
+			<td>
+				{{.Id}}
+			</td>
 			<td id="qqq">
 				<a href="javascript:" onclick="javascritp:onShowDashBoard();">{{.Name}}</a>
 			</td>
@@ -45,14 +52,231 @@
 		</tr>
 		{{end}}
 	</tbody>
-</table> <!-- <button class="btn btn-info" type="button" onclick="location.href='http://localhost:8080/new'">New</button>
-<a href="#myModal" role="button" class="btn" data-toggle="modal">NewCounter</a> -->
-<div class="pagination offset4">
-	<ul>
+</table> 
+
+
+
+<div class="pagination offset5">
 		<li><a href="#">Prev</a></li>		
 		{{.Test}}
 		<li><a href="">Next</a></li>
-	</ul>
+</div>
+
+<div class="row-fluid">
+	<div class="panel panel-default col-lg-5">
+		<div class="panel-heading">Information</div>
+		
+			<div class="panel-body">
+				<form class="bs-example">
+					<div class="row-fluid span6">
+					    <div class="row-fluid">
+					      <label class="control-label span6" for="disabledInput">Name:</label>
+					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0" disabled="">
+					    </div>
+					    <div class="row-fluid">
+					      <label class="control-label span6" for="disabledInput">Code:</label>
+					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0" disabled="">
+					    </div>
+					    <div class="row-fluid">
+					      <label class="control-label span6" for="disabledInput">Nature:</label>
+					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0" disabled="">
+					    </div>
+					    <div class="row-fluid">
+					      <label class="control-label span6" for="disabledInput">Group by:</label>
+					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0" disabled="">
+					    </div>
+					    <div class="row-fluid">
+					      <label class="control-label span6" for="disabledInput">Supervisor:</label>
+					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0" disabled="">
+					    </div>
+					    <div class="row-fluid">
+					      <label class="control-label span6" for="disabledInput">Scope of application:</label>
+					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0" disabled="">
+					    </div>
+					    <div class="row-fluid">
+					      <label class="control-label span6" for="disabledInput">License contract model:</label>
+					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0" disabled="">
+					    </div>
+					</div>
+					<div class="row-fluid span6">
+						<div class="checkbox">
+	                        <label>
+	                          <input type="checkbox"> Use as template
+	                        </label>
+                      	</div>
+                      	<div class="checkbox">
+	                        <label>
+	                          <input type="checkbox"> Is part of corporate software management
+	                        </label>
+                      	</div>
+                      	<div class="checkbox">
+	                        <label>
+	                          <input type="checkbox"> Do not include in the compliance reports
+	                        </label>
+                      	</div>
+                      	<div class="checkbox">
+	                        <label>
+	                          <input type="checkbox"> Edit the counter using the wizards
+	                        </label>
+                      	</div>
+                      	<div class="checkbox">
+	                        <label>
+	                          <input type="checkbox"> Rights count
+	                        </label>
+                      	</div>
+                      	<div class="checkbox">
+	                        <label>
+	                          <input type="checkbox"> Entitlements count
+	                        </label>
+                      	</div>
+                      	<div class="checkbox">
+	                        <label>
+	                          <input type="checkbox"> Installations/Utilizations count
+	                        </label>
+                      	</div>
+                      	<div class="checkbox">
+	                        <label>
+	                          <input type="checkbox"> Software upgrade counter
+	                        </label>
+                      	</div>
+					</div>
+				</form>
+			</div>
+	</div>
+	<div class="panel panel-default col-lg-7">
+            <div class="bs-example">
+              <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+                <li class="active"><a href="#general" data-toggle="tab">General</a></li>
+                <li><a href="#rights" data-toggle="tab">Rights</a></li>
+                <li><a href="#installs" data-toggle="tab">Installations/Utilizations</a></li>                               
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Dropdown <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#dropdown1" data-toggle="tab">Action</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#dropdown2" data-toggle="tab">Another action</a></li>
+                  </ul>
+                </li>
+              </ul>
+              <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade active in" id="general">
+                	<div class="panel panel-default">
+                	  	<div class="panel-heading">
+                	  		Result of calculations
+                	  	</div>
+		              	<div class="panel-body">
+			              	<form class="bs-example">
+				                <div class="row-fluid">
+				                  <label class="control-label span3" for="disabledInput">Rights count:</label>
+				                  <input class="form-control span3" id="disabledInput" type="text" placeholder="0" disabled="">
+				                </div>
+				                <div class="row-fluid">
+				                  <label class="control-label span3" for="disabledInput">Installations/Utilizations count:</label>
+				                  <input class="form-control span3" id="disabledInput" type="text" placeholder="0" disabled="">
+				                </div>
+				                <div class="row-fluid">
+				                  <label class="control-label span3" for="disabledInput">Unused Installations:</label>
+				                  <input class="form-control span3" id="disabledInput" type="text" placeholder="0" disabled="">
+				                </div>
+				                <div class="row-fluid">
+				                  <label class="control-label span3" for="disabledInput">Compliance:</label>
+				                  <input class="form-control span3" id="disabledInput" type="text" placeholder="0" disabled="">
+				                </div>
+				            </form>
+			            </div>
+			            <div class="panel-heading">
+			            	Comment
+			            </div>
+		              	<div class="panel-body">
+		              		<input class="form-control" id="disabledInput" type="text" placeholder="comment" disabled="">
+		              	</div>
+		            </div>
+		        </div>
+		        <div class="tab-pane fade" id="rights">
+                  	<div class="panel panel-default">
+		                	 <div class="panel-heading">
+		                	  	Criteria
+		                	 </div>
+		              	<div class="panel-body">
+		              		<form class="bs-example">
+				                <div class="row-fluid">
+				                  	<label class="control-label span3" for="disabledInput">Rights counter context:</label>
+				                  	<input class="form-control span3" id="disabledInput" type="text" placeholder="0" disabled="">
+				                </div>
+				                <div class="row-fluid">
+				                  	<label class="control-label span3" for="disabledInput">Scope of the rights to be counted:</label>
+				                  	<input class="form-control span3" id="disabledInput" type="text" placeholder="0" disabled="">
+				                </div>
+				                <div class="row-fluid">
+				                  	<label class="control-label span3" for="disabledInput">Rights -> Group By link:</label>
+				                  	<input class="form-control span3" id="disabledInput" type="text" placeholder="0" disabled="">
+				                </div>
+				                <div class="row-fluid">
+				                  	<label class="control-label span3" for="disabledInput">License type:</label>
+				                  	<input class="form-control span3" id="disabledInput" type="text" placeholder="0" disabled="">
+				                </div>
+			                </form>
+			            </div>
+			        
+			            <div class="panel-heading">
+			            	Calculation
+			            </div>
+		              	<div class="panel-body">
+		              		<div class="row-fluid">
+				                <label class="control-label span3" for="disabledInput">Rights-calculation mode:</label>
+				                <input class="form-control span3" id="disabledInput" type="text" placeholder="0" disabled="">
+				            </div>
+				            <div class="row-fluid offset3">
+				                <input class="form-control span3" id="disabledInput" type="text" placeholder="0" disabled="">
+				            </div>
+		              	</div>
+		             </div>
+                </div>
+                <div class="tab-pane fade" id="installs">
+                  	<div class="panel panel-default">
+                	  <div class="panel-heading">
+                	  	Criteria
+                	  </div>
+		              <div class="panel-body">
+		              	<form class="bs-example">
+			                <div class="row-fluid">
+			                  <label class="control-label span5" for="disabledInput">Installation/Utilization counter context:</label>
+			                  <input class="form-control span5" id="disabledInput" type="text" placeholder="0" disabled="">
+			                </div>
+			                <div class="row-fluid">
+			                  <label class="control-label span5" for="disabledInput">Scope of the Installations/Utilizations to be counted:</label>
+			                  <input class="form-control span5" id="disabledInput" type="text" placeholder="0" disabled="">
+			                </div>
+			                <div class="row-fluid">
+			                  <label class="control-label span5" for="disabledInput">Installations/Utilizations-> Group By link:</label>
+			                  <input class="form-control span5" id="disabledInput" type="text" placeholder="0" disabled="">
+			                </div>
+			            </form>
+			           </div>
+			            <div class="panel-heading">
+			            	Calculation
+			            </div>
+		              	<div class="panel-body">
+		              		<div class="row-fluid">
+				                <label class="control-label span5" for="disabledInput">Installations/Utilizations-calculation mode:</label>
+				                <input class="form-control span5" id="disabledInput" type="text" placeholder="0" disabled="">
+				            </div>
+				            <div class="row-fluid offset3">
+				                <input class="form-control span5" id="disabledInput" type="text" placeholder="0" disabled="">
+				            </div>
+		              	</div>
+		            </div>
+                </div>
+                <div class="tab-pane fade" id="dropdown2">
+                  <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater.</p>
+                </div>
+                  
+                </div>
+                
+              </div>
+        </div>
 </div>
 
 <script type="text/javascript">

@@ -73,7 +73,9 @@ func CounterList() (ctlist []SoftWareCounter, err error) {
 
 	defer db.Close()
 
-	strQuery := "SELECT name, bInternal, dLicUseRights, dEntCount, dSoftInstallCount, dUnusedInstall " +
+	/*strQuery := "SELECT name, code, type, context, bType, bFamily, bAutomated, bCountLic, bCountEnt, bCountInst, bLicUpgrade, bInternal, " +
+	" dLicUseRights, dEntCount, dSoftInstallCount, dUnusedInstall " +*/
+	strQuery := "SELECT lCountId, name, bInternal, dLicUseRights, dEntCount, dSoftInstallCount, dUnusedInstall " +
 		" FROM " + DB_SCHEME + "." + TBL_SOFTWARECOUNTER +
 		" WHERE bType = 0 " +
 		" ORDER BY name "
@@ -89,7 +91,7 @@ func CounterList() (ctlist []SoftWareCounter, err error) {
 
 	for rows.Next() {
 		var r SoftWareCounter
-		err := rows.Scan(&r.Name, &r.IsInternal, &r.LicUseRights, &r.EntCount, &r.SoftInstallCount, &r.UnusedInstall)
+		err := rows.Scan(&r.Id, &r.Name, &r.IsInternal, &r.LicUseRights, &r.EntCount, &r.SoftInstallCount, &r.UnusedInstall)
 		if err != nil {
 			fmt.Println("rows.Scan failed. %v", err)
 			return p, err

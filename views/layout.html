@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Le styles -->
-    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/bootwatch/slate/bootstrap.css" rel="stylesheet">
     <style type="text/css">
     body {
     padding-top: 50px;
@@ -34,90 +34,46 @@
     <script type="text/javascript" src="/static/js/highchart/js/modules/exporting.js"></script>
   </head>
   <body>
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          </a>
-          <p class="brand">Software Asset Management</p>
-          <div class="nav-collapse collapse">
-            <ul class="nav" role="navigation">
-              <li class="dropdown">
-                <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Software Counter <b class="caret"></b></a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/">Counter Result</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/dashboard">DashBoard</a></li>
-                  <li role="presentation" class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">License Rules</a></li>
-                </ul>
-              </li>
-            </ul>
-            <ul class="nav">
-              <li><a href="http://www.hp.com">HP Live NetWork</a></li>
-              <li><a href="/unlock">Unlock AM User</a></li>
-            </ul>
-            </div><!--/.nav-collapse -->
-          </div>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="navbar-header">
+          <p class="navbar-brand">Software Asset Management</p>
         </div>
-      </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">SAM <span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="themes">
+                <li><a tabindex="-1" href="../default/">Counter</a></li>
+                <li class="divider"></li>
+                <li><a tabindex="-1" href="../amelia/">Compliance</a></li>
+                <li><a tabindex="-1" href="../cerulean/">All Software</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="/License">License</a>
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Report <span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="download">
+                <li><a tabindex="-1" href="/dashboard">Dashboard</a></li>
+                <li><a tabindex="-1" href="/report">Reports</a></li>
+              </ul>
+            </li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="http://www.hp.com" target="_blank">HP Live Network</a></li>
+            <li><a href="/unlock">Unlock AM User</a></li>
+          </ul>
+
+        </div>
+
+    </div>
+
+
       <div class="container-fluid">
         <div class="row-fluid">
-          <div class="accordion span3" id="accordion2">
-            <div class="accordion-group">
-              <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                  Software Counter
-                </a>
-              </div>
-              <div id="collapseOne" class="accordion-body collapse">
-                <div class="accordion-inner accordion-inverse">
-                  <a href="/">Result of counter</a>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-group">
-              <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-                  <img src="static/img/report.png"/> Report
-                </a>
-              </div>
-              <div id="collapseTwo" class="accordion-body collapse">
-                <div class="accordion-inner accordion-inverse">
-                  <a href="/dashboard">Dashboard</a>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-group">
-              <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseSoftware">
-                  <img src="static/img/software.png"/> Software
-                </a>
-              </div>
-              <div id="collapseSoftware" class="accordion-body collapse">
-                <div class="accordion-inner accordion-inverse">
-                  <a href="/">All Products</a>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-group">
-              <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseLicense">
-                  Licenses
-                </a>
-              </div>
-              <div id="collapseLicense" class="accordion-body collapse">
-                <div class="accordion-inner accordion-inverse">
-                  <a href="/">License Types</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="span7">
             {{.LayoutContent}}
-          </div>
         </div>
         
         <!-- footer -->
