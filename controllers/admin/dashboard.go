@@ -16,7 +16,8 @@ const DASHBOARD = `
             type: 'bar',
             plotBackgroundColor: null,
             plotBorderWidth: null,
-            plotShadow: false
+            plotShadow: false,
+            backgroundColor:'transparent'
         },
         title: {
             text: 'Software license/installations statistic'

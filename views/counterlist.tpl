@@ -3,7 +3,7 @@
 	<thead>
 		<tr class="caption">
 			<th>
-				<input type="checkbox"></input>
+				<!-- <input type="checkbox"></input> -->
 			</th>
 			<th>
 				Id
@@ -29,25 +29,25 @@
 		{{range .CountResult}}
 		<tr>
 			<td>
-				<img src="static/ico/{{.Status}}.gif"/>
+				<img src="static/ico/{{.Status}}.png"/>
 			</td>
-			<td>
-				{{.Id}}
+			<td id="counterId">
+				{{.LCounterId}}
 			</td>
 			<td id="qqq">
-				<a href="javascript:" onclick="javascritp:onShowDashBoard();">{{.Name}}</a>
+				<a href="javascript:" onclick="javascript:onShowDashBoard(event);">{{.Name}}</a>
 			</td>
 			<td>
-				{{.LicUseRights}}
+				{{.LLicUseRights}}
 			</td>
 			<td>
-				{{.EntCount}}
+				{{.LEntCount}}
 			</td>
 			<td>
-				{{.SoftInstallCount}}
+				{{.LSoftInstallCount}}
 			</td>
 			<td>
-				{{.UnusedInstall}}
+				{{.LUnusedInstall}}
 			</td>
 		</tr>
 		{{end}}
@@ -71,72 +71,72 @@
 					<div class="row-fluid span6">
 					    <div class="row-fluid">
 					      <label class="control-label span6" for="disabledInput">Name:</label>
-					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0" disabled="">
+					      <input class="form-control span6" id="disabledInput" type="text" placeholder="{{.SelectedCounter.Name}}">
 					    </div>
 					    <div class="row-fluid">
 					      <label class="control-label span6" for="disabledInput">Code:</label>
-					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0" disabled="">
+					      <input class="form-control span6" id="disabledInput" type="text" placeholder="{{.SelectedCounter.Code}}">
 					    </div>
 					    <div class="row-fluid">
 					      <label class="control-label span6" for="disabledInput">Nature:</label>
-					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0" disabled="">
+					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0">
 					    </div>
 					    <div class="row-fluid">
 					      <label class="control-label span6" for="disabledInput">Group by:</label>
-					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0" disabled="">
+					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0">
 					    </div>
 					    <div class="row-fluid">
 					      <label class="control-label span6" for="disabledInput">Supervisor:</label>
-					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0" disabled="">
+					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0">
 					    </div>
 					    <div class="row-fluid">
 					      <label class="control-label span6" for="disabledInput">Scope of application:</label>
-					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0" disabled="">
+					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0">
 					    </div>
 					    <div class="row-fluid">
 					      <label class="control-label span6" for="disabledInput">License contract model:</label>
-					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0" disabled="">
+					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0">
 					    </div>
 					</div>
 					<div class="row-fluid span6">
 						<div class="checkbox">
 	                        <label>
-	                          <input type="checkbox"> Use as template
+	                          <input type="checkbox" {{.checkboxes.BType}}> Use as template
 	                        </label>
                       	</div>
                       	<div class="checkbox">
 	                        <label>
-	                          <input type="checkbox"> Is part of corporate software management
+	                          <input type="checkbox" {{.checkboxes.BFamily}}> Is part of corporate software management
 	                        </label>
                       	</div>
                       	<div class="checkbox">
 	                        <label>
-	                          <input type="checkbox"> Do not include in the compliance reports
+	                          <input type="checkbox" {{.checkboxes.BInternal}}> Do not include in the compliance reports
 	                        </label>
                       	</div>
                       	<div class="checkbox">
 	                        <label>
-	                          <input type="checkbox"> Edit the counter using the wizards
+	                          <input type="checkbox" {{.checkboxes.BAutomated}}> Edit the counter using the wizards
 	                        </label>
                       	</div>
                       	<div class="checkbox">
 	                        <label>
-	                          <input type="checkbox"> Rights count
+	                          <input type="checkbox" {{.checkboxes.BCountLic}}> Rights count
 	                        </label>
                       	</div>
                       	<div class="checkbox">
 	                        <label>
-	                          <input type="checkbox"> Entitlements count
+	                          <input type="checkbox" {{.checkboxes.BCountEnt}}> Entitlements count
 	                        </label>
                       	</div>
                       	<div class="checkbox">
 	                        <label>
-	                          <input type="checkbox"> Installations/Utilizations count
+	                          <input type="checkbox" {{.checkboxes.BCountInst}}> Installations/Utilizations count
 	                        </label>
                       	</div>
                       	<div class="checkbox">
 	                        <label>
-	                          <input type="checkbox"> Software upgrade counter
+	                          <input type="checkbox" {{.checkboxes.BLicUpgrade}}> Software upgrade counter
 	                        </label>
                       	</div>
 					</div>
@@ -170,19 +170,19 @@
 			              	<form class="bs-example">
 				                <div class="row-fluid">
 				                  <label class="control-label span3" for="disabledInput">Rights count:</label>
-				                  <input class="form-control span3" id="disabledInput" type="text" placeholder="0" disabled="">
+				                  <input class="form-control span3" id="disabledInput" type="text" placeholder="{{.SelectedCounter.LLicUseRights}}">
 				                </div>
 				                <div class="row-fluid">
 				                  <label class="control-label span3" for="disabledInput">Installations/Utilizations count:</label>
-				                  <input class="form-control span3" id="disabledInput" type="text" placeholder="0" disabled="">
+				                  <input class="form-control span3" id="disabledInput" type="text" placeholder="{{.SelectedCounter.LEntCount}}">
 				                </div>
 				                <div class="row-fluid">
 				                  <label class="control-label span3" for="disabledInput">Unused Installations:</label>
-				                  <input class="form-control span3" id="disabledInput" type="text" placeholder="0" disabled="">
+				                  <input class="form-control span3" id="disabledInput" type="text" placeholder="{{.SelectedCounter.LSoftInstallCount}}">
 				                </div>
 				                <div class="row-fluid">
 				                  <label class="control-label span3" for="disabledInput">Compliance:</label>
-				                  <input class="form-control span3" id="disabledInput" type="text" placeholder="0" disabled="">
+				                  <input class="form-control span3" id="disabledInput" type="text" placeholder="{{.SelectedCounter.LUnusedInstall}}">
 				                </div>
 				            </form>
 			            </div>
@@ -190,7 +190,7 @@
 			            	Comment
 			            </div>
 		              	<div class="panel-body">
-		              		<input class="form-control" id="disabledInput" type="text" placeholder="comment" disabled="">
+		              		<input class="form-control" id="disabledInput" type="text" placeholder="comment">
 		              	</div>
 		            </div>
 		        </div>
@@ -203,19 +203,19 @@
 		              		<form class="bs-example">
 				                <div class="row-fluid">
 				                  	<label class="control-label span3" for="disabledInput">Rights counter context:</label>
-				                  	<input class="form-control span3" id="disabledInput" type="text" placeholder="0" disabled="">
+				                  	<input class="form-control span3" id="disabledInput" type="text" placeholder="0">
 				                </div>
 				                <div class="row-fluid">
 				                  	<label class="control-label span3" for="disabledInput">Scope of the rights to be counted:</label>
-				                  	<input class="form-control span3" id="disabledInput" type="text" placeholder="0" disabled="">
+				                  	<input class="form-control span3" id="disabledInput" type="text" placeholder="0">
 				                </div>
 				                <div class="row-fluid">
 				                  	<label class="control-label span3" for="disabledInput">Rights -> Group By link:</label>
-				                  	<input class="form-control span3" id="disabledInput" type="text" placeholder="0" disabled="">
+				                  	<input class="form-control span3" id="disabledInput" type="text" placeholder="0">
 				                </div>
 				                <div class="row-fluid">
 				                  	<label class="control-label span3" for="disabledInput">License type:</label>
-				                  	<input class="form-control span3" id="disabledInput" type="text" placeholder="0" disabled="">
+				                  	<input class="form-control span3" id="disabledInput" type="text" placeholder="0">
 				                </div>
 			                </form>
 			            </div>
@@ -226,10 +226,10 @@
 		              	<div class="panel-body">
 		              		<div class="row-fluid">
 				                <label class="control-label span3" for="disabledInput">Rights-calculation mode:</label>
-				                <input class="form-control span3" id="disabledInput" type="text" placeholder="0" disabled="">
+				                <input class="form-control span3" id="disabledInput" type="text" placeholder="0">
 				            </div>
 				            <div class="row-fluid offset3">
-				                <input class="form-control span3" id="disabledInput" type="text" placeholder="0" disabled="">
+				                <input class="form-control span3" id="disabledInput" type="text" placeholder="0">
 				            </div>
 		              	</div>
 		             </div>
@@ -243,15 +243,15 @@
 		              	<form class="bs-example">
 			                <div class="row-fluid">
 			                  <label class="control-label span5" for="disabledInput">Installation/Utilization counter context:</label>
-			                  <input class="form-control span5" id="disabledInput" type="text" placeholder="0" disabled="">
+			                  <input class="form-control span5" id="disabledInput" type="text" placeholder="0">
 			                </div>
 			                <div class="row-fluid">
 			                  <label class="control-label span5" for="disabledInput">Scope of the Installations/Utilizations to be counted:</label>
-			                  <input class="form-control span5" id="disabledInput" type="text" placeholder="0" disabled="">
+			                  <input class="form-control span5" id="disabledInput" type="text" placeholder="0">
 			                </div>
 			                <div class="row-fluid">
 			                  <label class="control-label span5" for="disabledInput">Installations/Utilizations-> Group By link:</label>
-			                  <input class="form-control span5" id="disabledInput" type="text" placeholder="0" disabled="">
+			                  <input class="form-control span5" id="disabledInput" type="text" placeholder="0">
 			                </div>
 			            </form>
 			           </div>
@@ -261,10 +261,10 @@
 		              	<div class="panel-body">
 		              		<div class="row-fluid">
 				                <label class="control-label span5" for="disabledInput">Installations/Utilizations-calculation mode:</label>
-				                <input class="form-control span5" id="disabledInput" type="text" placeholder="0" disabled="">
+				                <input class="form-control span5" id="disabledInput" type="text" placeholder="0">
 				            </div>
 				            <div class="row-fluid offset3">
-				                <input class="form-control span5" id="disabledInput" type="text" placeholder="0" disabled="">
+				                <input class="form-control span5" id="disabledInput" type="text" placeholder="0">
 				            </div>
 		              	</div>
 		            </div>
@@ -280,9 +280,11 @@
 </div>
 
 <script type="text/javascript">
-	function onShowDashBoard(){
-		var str=document.getElementById("qqq").value;
-		location.href = "http://localhost:8080/dashboard?Name=xxx&LicUseRights=30&EntCount=10&SoftInstallCount=20&UnusedInstall=10";
+	function onShowDashBoard(e){
+		//alert(e);
+		//alert(e.target.parentNode.parentNode.cells[1].innerHTML);
+		var str=e.target.parentNode.parentNode.cells[1].innerHTML;
+		location.href = "http://localhost:6060/index?CounterId="+str;
 	}
 </script>
 <!-- Button to trigger modal -->

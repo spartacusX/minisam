@@ -17,7 +17,16 @@ const RecordNumPerPage = 15
 
 func (this *MainController) Get() {
 	var resultToShow interface{}
-	counterList, _ := m.CounterList()
+	var counterList []m.SoftWareCounter
+
+	if this.GetSession("counterList") == nil {
+		counterList, _ = m.CounterList()
+		this.SetSession("counterList", counterList)
+	} else {
+		counterList = this.GetSession("counterList").([]m.SoftWareCounter)
+	}
+
+	//fmt.Println(counterList)
 
 	pageNum, _ := this.GetInt("PageNum")
 	if pageNum < 1 {
@@ -32,13 +41,22 @@ func (this *MainController) Get() {
 
 	this.Data["CountResult"] = resultToShow
 
-	//var sws = m.Statistic()
-	//total := m.TotalCount(&sws)
+	counterId, _ := this.GetInt("CounterId")
+	if counterId != 0 {
+		for _, v := range counterList {
+			if (int)(counterId) == v.LCounterId {
+				this.Data["SelectedCounter"] = v
+				break
+			}
+
+		}
+	}
+
 	this.Data["TotalRecords"] = len(counterList)
 
 	var strPageHTML string
 	for i := 1; i <= (len(counterList) / RecordNumPerPage); i++ {
-		strPageHTML += `<li><a href="/?PageNum=` + strconv.Itoa(i) + `">` + strconv.Itoa(i) + `</a></li>`
+		strPageHTML += `<li><a href="/index?PageNum=` + strconv.Itoa(i) + `">` + strconv.Itoa(i) + `</a></li>`
 	}
 	this.Data["Test"] = template.HTML(strPageHTML)
 
