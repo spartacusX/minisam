@@ -3,6 +3,7 @@ package admin
 import (
 	"fmt"
 	"github.com/astaxie/beego"
+	conf "github.com/spartacusX/minisam/config"
 	m "github.com/spartacusX/minisam/models"
 	"html/template"
 	"strconv"
@@ -61,9 +62,7 @@ func (this *DashBoardController) Prepare() {
 }
 
 func (this *DashBoardController) Get() {
-	fmt.Println("Request Method: Get")
-
-	m.CounterList()
+	m.ListCounter()
 
 	var sws = m.Statistic()
 	total := m.TotalCount(&sws)
@@ -78,6 +77,8 @@ func (this *DashBoardController) Get() {
 		strconv.FormatFloat((float64)(sws.UnUsedInstallations*100/total), 'f', 1, 64), 1)
 
 	this.Data["Dashboard"] = template.JS(strDash)
+	this.Data["DashboardHeight"] = conf.DashboardHeight
+	this.Data["DashboardWidth"] = conf.DashboardWidth
 
 	this.Layout = "layout.html"
 	this.TplNames = "dashboard.tpl"

@@ -53,7 +53,7 @@ func ListCounter() (counters []SWCounter, err error) {
 
 	defer db.Close()
 
-	strQuery := "SELECT lCountId, name, type, dLicUseRights, dEntCount, dSoftInstallCount, dUnusedInstall " +
+	strQuery := "SELECT lCountId, name, dLicUseRights, dEntCount, dSoftInstallCount, dUnusedInstall " +
 		" FROM " + conf.Scheme + "." + TBL_SOFTWARECOUNTER +
 		" WHERE bType = 0 " +
 		" ORDER BY name "
@@ -69,12 +69,16 @@ func ListCounter() (counters []SWCounter, err error) {
 
 	for rows.Next() {
 		var r SWCounter
-		var t interface{}
-		err := rows.Scan(&r.LCounterId, &r.Name, &t, &r.LLicUseRights, &r.LEntCount, &r.LSoftInstallCount, &r.LUnusedInstall)
+		err := rows.Scan(&r.LCounterId, &r.Name, &r.LLicUseRights, &r.LEntCount, &r.LSoftInstallCount, &r.LUnusedInstall)
 		if err != nil {
 			fmt.Printf("rows.Scan failed. %v\n", err)
 			return counters, err
 		} else {
+			statistic.Entitlements += r.LEntCount
+			statistic.Licenses += r.LLicUseRights
+			statistic.Installations += r.LSoftInstallCount
+			statistic.UnUsedInstallations += r.LUnusedInstall
+
 			switch compliance := r.LLicUseRights - r.LSoftInstallCount; {
 			case compliance > 5:
 				r.Status = ColorLevel[NORMAL]

@@ -32,8 +32,6 @@ func Statistic() (sws SWStatistic) {
 	return statistic
 }
 
-var TABLE_EMPLDEPT = "AMDemo94en.itam.amEmplDept"
-
 const TBL_SOFTWARECOUNTER = "amSoftLicCounter"
 
 const TBL_COUNTERRESULT = "amRightsUsesCount"
@@ -50,62 +48,62 @@ func sqlConnect() (db *sql.DB, err error) {
 	return db, nil
 }
 
-func CounterList() (ctlist []SoftWareCounter, err error) {
-	p := []SoftWareCounter{}
-	db, err := sqlConnect()
-	if err != nil {
-		return p, err
-	}
+// func CounterList() (ctlist []SoftWareCounter, err error) {
+// 	p := []SoftWareCounter{}
+// 	db, err := sqlConnect()
+// 	if err != nil {
+// 		return p, err
+// 	}
 
-	defer db.Close()
+// 	defer db.Close()
 
-	/*strQuery := "SELECT name, code, type, context, bType, bFamily, bAutomated, bCountLic, bCountEnt, bCountInst, bLicUpgrade, bInternal, " +
-	" dLicUseRights, dEntCount, dSoftInstallCount, dUnusedInstall " +*/
-	strQuery := "SELECT lCountId, name, Code, Context, bType, bFamily, bInternal, bAutomated, " +
-		"bCountLic, bCountEnt, bCountInst, bLicUpgrade, dLicUseRights, dEntCount, dSoftInstallCount, dUnusedInstall " +
-		" FROM " + conf.Scheme + "." + TBL_SOFTWARECOUNTER +
-		" WHERE bType = 0 " +
-		" ORDER BY name "
+// 	/*strQuery := "SELECT name, code, type, context, bType, bFamily, bAutomated, bCountLic, bCountEnt, bCountInst, bLicUpgrade, bInternal, " +
+// 	" dLicUseRights, dEntCount, dSoftInstallCount, dUnusedInstall " +*/
+// 	strQuery := "SELECT lCountId, name, Code, Context, bType, bFamily, bInternal, bAutomated, " +
+// 		"bCountLic, bCountEnt, bCountInst, bLicUpgrade, dLicUseRights, dEntCount, dSoftInstallCount, dUnusedInstall " +
+// 		" FROM " + conf.Scheme + "." + TBL_SOFTWARECOUNTER +
+// 		" WHERE bType = 0 " +
+// 		" ORDER BY name "
 
-	rows, err := db.Query(strQuery)
-	if err != nil {
-		fmt.Printf("db.Query failed. %v\n", err)
-		return p, err
-	}
+// 	rows, err := db.Query(strQuery)
+// 	if err != nil {
+// 		fmt.Printf("db.Query failed. %v\n", err)
+// 		return p, err
+// 	}
 
-	// Escape the first record( NULL record)
-	rows.Next()
+// 	// Escape the first record( NULL record)
+// 	rows.Next()
 
-	for rows.Next() {
-		var r SoftWareCounter
-		err := rows.Scan(&r.LCounterId, &r.Name, &r.Code, &r.Context, &r.BType, &r.BFamily, &r.IsInternal, &r.BAutomated, &r.BCountLic,
-			&r.BCountEnt, &r.BCountInst, &r.BLicUpgrade, &r.LLicUseRights, &r.LEntCount, &r.LSoftInstallCount, &r.LUnusedInstall)
-		if err != nil {
-			fmt.Printf("rows.Scan failed. %v\n", err)
-			return p, err
-		} else {
-			statistic.Entitlements += r.LEntCount
-			statistic.Licenses += r.LLicUseRights
-			statistic.Installations += r.LSoftInstallCount
-			statistic.UnUsedInstallations += r.LUnusedInstall
+// 	for rows.Next() {
+// 		var r SoftWareCounter
+// 		err := rows.Scan(&r.LCounterId, &r.Name, &r.Code, &r.Context, &r.BType, &r.BFamily, &r.IsInternal, &r.BAutomated, &r.BCountLic,
+// 			&r.BCountEnt, &r.BCountInst, &r.BLicUpgrade, &r.LLicUseRights, &r.LEntCount, &r.LSoftInstallCount, &r.LUnusedInstall)
+// 		if err != nil {
+// 			fmt.Printf("rows.Scan failed. %v\n", err)
+// 			return p, err
+// 		} else {
+// 			statistic.Entitlements += r.LEntCount
+// 			statistic.Licenses += r.LLicUseRights
+// 			statistic.Installations += r.LSoftInstallCount
+// 			statistic.UnUsedInstallations += r.LUnusedInstall
 
-			switch compliance := r.LLicUseRights - r.LSoftInstallCount; {
-			case compliance > 5:
-				r.Status = ColorLevel[NORMAL]
-			case compliance >= 0:
-				r.Status = ColorLevel[WARNING]
-			case compliance < 0:
-				r.Status = ColorLevel[ERROR]
-			default:
-				r.Status = ColorLevel[NORMAL]
-			}
+// 			switch compliance := r.LLicUseRights - r.LSoftInstallCount; {
+// 			case compliance > 5:
+// 				r.Status = ColorLevel[NORMAL]
+// 			case compliance >= 0:
+// 				r.Status = ColorLevel[WARNING]
+// 			case compliance < 0:
+// 				r.Status = ColorLevel[ERROR]
+// 			default:
+// 				r.Status = ColorLevel[NORMAL]
+// 			}
 
-			p = append(p, r)
-		}
-	}
-	//fmt.Println(p)
-	return p, nil
-}
+// 			p = append(p, r)
+// 		}
+// 	}
+// 	//fmt.Println(p)
+// 	return p, nil
+// }
 
 // func AddCounter(c SWCounter) (err error) {
 // 	db, err := sqlConnect()

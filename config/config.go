@@ -37,6 +37,8 @@ var (
 	AppConfig        *Config
 	AppConfigPath    string
 	RecordNumPerPage int
+	DashboardHeight  int
+	DashboardWidth   int
 )
 
 func init() {
@@ -45,6 +47,8 @@ func init() {
 	CnxString = "dsn=AMDemo94en;uid=sa;pwd=sasa"
 	AppConfigPath = "./conf/sam.conf"
 	RecordNumPerPage = 15
+	DashboardHeight = 500
+	DashboardWidth = 450
 }
 
 // ParseFile creates a new Config and parses the file configuration from the
@@ -161,6 +165,8 @@ func ParseConfig() (err error) {
 		// 	PprofOn = pprofon
 		// }
 		RecordNumPerPage, _ = AppConfig.Int("RecordNumPerPage")
+		DashboardHeight, _ = AppConfig.Int("dashboard.height")
+		DashboardWidth, _ = AppConfig.Int("dashboard.width")
 		// if timeout, err := AppConfig.Int64("httpservertimeout"); err == nil {
 		// 	HttpServerTimeOut = timeout
 		// }
