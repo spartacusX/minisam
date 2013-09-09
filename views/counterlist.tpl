@@ -1,28 +1,13 @@
+<!--List screen-->
 <div class="row-fluid">
 <table class="table table-hover table-bordered table-striped">
 	<thead>
 		<tr class="caption">
-			<th>
-				<!-- <input type="checkbox"></input> -->
+			{{range .ColumnList}}
+			<th class="{{.ColumnClassAtt}}">
+				{{.ColumnName}}
 			</th>
-			<th>
-				Id
-			</th>
-			<th>
-				Name
-			</th>
-			<th>
-				Rights
-			</th>
-			<th>
-				Entitlements
-			</th>
-			<th>
-				Installs
-			</th>
-			<th>
-				Unused
-			</th>
+			{{end}}
 		</tr>
 	</thead>
 	<tbody>
@@ -31,11 +16,11 @@
 			<td>
 				<img src="static/ico/{{.Status}}.png"/>
 			</td>
-			<td id="counterId">
+			<td id="counterId" class="hide">
 				{{.LCounterId}}
 			</td>
 			<td id="qqq">
-				<a href="javascript:" onclick="javascript:onShowDashBoard(event);">{{.Name}}</a>
+				<a href="javascript:" onclick="javascript:loadXMLDoc(event);">{{.Name}}</a>
 			</td>
 			<td>
 				{{.LLicUseRights}}
@@ -54,14 +39,13 @@
 	</tbody>
 </table> 
 
-
-
 <div class="pagination offset5">
-		<li><a href="#">Prev</a></li>		
-		{{.Test}}
-		<li><a href="">Next</a></li>
+		<li><a href="/index?PageNum=-1">Prev</a></li>		
+		{{.Pagination}}
+		<li><a href="/index?PageNum=-2">Next</a></li>
 </div>
 
+<!--Detail screen-->
 <div class="row-fluid">
 	<div class="panel panel-default col-lg-5">
 		<div class="panel-heading">Information</div>
@@ -69,76 +53,21 @@
 			<div class="panel-body">
 				<form class="bs-example">
 					<div class="row-fluid span6">
-					    <div class="row-fluid">
-					      <label class="control-label span6" for="disabledInput">Name:</label>
-					      <input class="form-control span6" id="disabledInput" type="text" placeholder="{{.SelectedCounter.Name}}">
+						{{range .DetailInformationInput}}
+						<div class="row-fluid">
+					      <label class="control-label span6" for="{{.Id}}">{{.Desc}}</label>
+					      <input class="form-control span6" id="{{.Id}}" type="text" placeholder="">
 					    </div>
-					    <div class="row-fluid">
-					      <label class="control-label span6" for="disabledInput">Code:</label>
-					      <input class="form-control span6" id="disabledInput" type="text" placeholder="{{.SelectedCounter.Code}}">
-					    </div>
-					    <div class="row-fluid">
-					      <label class="control-label span6" for="disabledInput">Nature:</label>
-					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0">
-					    </div>
-					    <div class="row-fluid">
-					      <label class="control-label span6" for="disabledInput">Group by:</label>
-					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0">
-					    </div>
-					    <div class="row-fluid">
-					      <label class="control-label span6" for="disabledInput">Supervisor:</label>
-					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0">
-					    </div>
-					    <div class="row-fluid">
-					      <label class="control-label span6" for="disabledInput">Scope of application:</label>
-					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0">
-					    </div>
-					    <div class="row-fluid">
-					      <label class="control-label span6" for="disabledInput">License contract model:</label>
-					      <input class="form-control span6" id="disabledInput" type="text" placeholder="0">
-					    </div>
+						{{end}}
 					</div>
 					<div class="row-fluid span6">
+						{{range .DetailInformationCheckBox}}
 						<div class="checkbox">
 	                        <label>
-	                          <input type="checkbox" {{.checkboxes.BType}}> Use as template
+	                          <input type="checkbox" id="{{.Id}}"> {{.Desc}}
 	                        </label>
                       	</div>
-                      	<div class="checkbox">
-	                        <label>
-	                          <input type="checkbox" {{.checkboxes.BFamily}}> Is part of corporate software management
-	                        </label>
-                      	</div>
-                      	<div class="checkbox">
-	                        <label>
-	                          <input type="checkbox" {{.checkboxes.BInternal}}> Do not include in the compliance reports
-	                        </label>
-                      	</div>
-                      	<div class="checkbox">
-	                        <label>
-	                          <input type="checkbox" {{.checkboxes.BAutomated}}> Edit the counter using the wizards
-	                        </label>
-                      	</div>
-                      	<div class="checkbox">
-	                        <label>
-	                          <input type="checkbox" {{.checkboxes.BCountLic}}> Rights count
-	                        </label>
-                      	</div>
-                      	<div class="checkbox">
-	                        <label>
-	                          <input type="checkbox" {{.checkboxes.BCountEnt}}> Entitlements count
-	                        </label>
-                      	</div>
-                      	<div class="checkbox">
-	                        <label>
-	                          <input type="checkbox" {{.checkboxes.BCountInst}}> Installations/Utilizations count
-	                        </label>
-                      	</div>
-                      	<div class="checkbox">
-	                        <label>
-	                          <input type="checkbox" {{.checkboxes.BLicUpgrade}}> Software upgrade counter
-	                        </label>
-                      	</div>
+						{{end}}
 					</div>
 				</form>
 			</div>
@@ -168,22 +97,12 @@
                 	  	</div>
 		              	<div class="panel-body">
 			              	<form class="bs-example">
-				                <div class="row-fluid">
-				                  <label class="control-label span3" for="disabledInput">Rights count:</label>
-				                  <input class="form-control span3" id="disabledInput" type="text" placeholder="{{.SelectedCounter.LLicUseRights}}">
+			              		{{range .DetailGeneralTab}}
+			              		<div class="row-fluid">
+				                  <label class="control-label span3" for="{{.Id}}">{{.Desc}}:</label>
+				                  <input class="form-control span3" id="{{.Id}}" type="text" placeholder="0">
 				                </div>
-				                <div class="row-fluid">
-				                  <label class="control-label span3" for="disabledInput">Installations/Utilizations count:</label>
-				                  <input class="form-control span3" id="disabledInput" type="text" placeholder="{{.SelectedCounter.LEntCount}}">
-				                </div>
-				                <div class="row-fluid">
-				                  <label class="control-label span3" for="disabledInput">Unused Installations:</label>
-				                  <input class="form-control span3" id="disabledInput" type="text" placeholder="{{.SelectedCounter.LSoftInstallCount}}">
-				                </div>
-				                <div class="row-fluid">
-				                  <label class="control-label span3" for="disabledInput">Compliance:</label>
-				                  <input class="form-control span3" id="disabledInput" type="text" placeholder="{{.SelectedCounter.LUnusedInstall}}">
-				                </div>
+			              		{{end}}
 				            </form>
 			            </div>
 			            <div class="panel-heading">
@@ -228,7 +147,8 @@
 				                <label class="control-label span3" for="disabledInput">Rights-calculation mode:</label>
 				                <input class="form-control span3" id="disabledInput" type="text" placeholder="0">
 				            </div>
-				            <div class="row-fluid offset3">
+				            <div class="row-fluid">
+				            	<label class="control-label span3" for="disabledInput"></label>
 				                <input class="form-control span3" id="disabledInput" type="text" placeholder="0">
 				            </div>
 		              	</div>
@@ -263,7 +183,8 @@
 				                <label class="control-label span5" for="disabledInput">Installations/Utilizations-calculation mode:</label>
 				                <input class="form-control span5" id="disabledInput" type="text" placeholder="0">
 				            </div>
-				            <div class="row-fluid offset3">
+				            <div class="row-fluid">
+				            	<label class="control-label span5" for="disabledInput"></label>
 				                <input class="form-control span5" id="disabledInput" type="text" placeholder="0">
 				            </div>
 		              	</div>
@@ -279,12 +200,59 @@
         </div>
 </div>
 
+<div id="xxContainer1" class="span2" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
 <script type="text/javascript">
-	function onShowDashBoard(e){
+	{{.Dashboard}}
+</script>
+
+<script type="text/javascript">
+	function loadXMLDoc(e){
 		//alert(e);
 		//alert(e.target.parentNode.parentNode.cells[1].innerHTML);
-		var str=e.target.parentNode.parentNode.cells[1].innerHTML;
-		location.href = "http://localhost:6060/index?CounterId="+str;
+		var counterId = e.target.parentNode.parentNode.cells[1].innerHTML;
+		var rights = e.target.parentNode.parentNode.cells[3].innerHTML;
+		//var entitlements = e.target.parentNode.parentNode.cells[4].innerHTML;
+		var installs = e.target.parentNode.parentNode.cells[5].innerHTML;
+		var unuseds = e.target.parentNode.parentNode.cells[6].innerHTML;
+
+  		document.getElementById('DetailGeneralTab_dLicUseRights').placeholder = rights;
+  		//document.getElementById('DetailGeneralTab_dEntCount').placeholder = entitlements;
+  		document.getElementById('DetailGeneralTab_dSoftInstallCount').placeholder = installs;
+  		document.getElementById('DetailGeneralTab_dUnusedInstall').placeholder = unuseds;
+
+		var url = "/index?CounterId=" + counterId;
+		//alert(url);
+		var xmlhttp;
+		var x;
+		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+		  	xmlhttp = new XMLHttpRequest();
+		} else {// code for IE6, IE5
+		  	xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange = function() 
+		{
+		  if (xmlhttp.readyState==4 && xmlhttp.status==200) 
+		  {
+		  	{{range .DetailInformationInput}}
+		    x = xmlhttp.responseXML.documentElement.getElementsByTagName("{{.SqlName}}");
+		    try{
+		    	document.getElementById('{{.Id}}').placeholder = x.item(0).textContent;		    	
+		    }catch(er){
+		    	document.getElementById('{{.Id}}').placeholder = "0";
+		    }
+		    {{end}}
+		    
+		    {{range .DetailInformationCheckBox}}
+		    x = xmlhttp.responseXML.documentElement.getElementsByTagName("{{.SqlName}}");
+		    var bType = x.item(0).textContent;
+	    	if (bType == "true"){
+	    		document.getElementById('{{.Id}}').setAttribute("checked", "checked")
+	    	}
+	    	{{end}}
+		  }
+		}
+		xmlhttp.open("GET", url, true);
+		xmlhttp.send();
 	}
 </script>
 <!-- Button to trigger modal -->

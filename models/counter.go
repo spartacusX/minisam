@@ -73,6 +73,10 @@ type SoftWareCounter struct {
 	UnusedInstall      int
 }
 
+func init() {
+
+}
+
 const (
 	NORMAL = iota
 	WARNING

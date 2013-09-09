@@ -29,14 +29,23 @@ type Config struct {
 }
 
 var (
-	HttpAddr      string
-	HttpPort      int
-	Driver        string
-	Scheme        string
-	CnxString     string
-	AppConfig     *Config
-	AppConfigPath string
+	HttpAddr         string
+	HttpPort         int
+	Driver           string
+	Scheme           string
+	CnxString        string
+	AppConfig        *Config
+	AppConfigPath    string
+	RecordNumPerPage int
 )
+
+func init() {
+	Driver = "odbc"
+	Scheme = "AMDemo94en.itam"
+	CnxString = "dsn=AMDemo94en;uid=sa;pwd=sasa"
+	AppConfigPath = "./conf/sam.conf"
+	RecordNumPerPage = 15
+}
 
 // ParseFile creates a new Config and parses the file configuration from the
 // named file.
@@ -151,10 +160,7 @@ func ParseConfig() (err error) {
 		// if pprofon, err := AppConfig.Bool("pprofon"); err == nil {
 		// 	PprofOn = pprofon
 		// }
-		// if sessMaxLifeTime, err := AppConfig.Int("sessiongcmaxlifetime"); err == nil && sessMaxLifeTime != 0 {
-		// 	int64val, _ := strconv.ParseInt(strconv.Itoa(sessMaxLifeTime), 10, 64)
-		// 	SessionGCMaxLifetime = int64val
-		// }
+		RecordNumPerPage, _ = AppConfig.Int("RecordNumPerPage")
 		// if timeout, err := AppConfig.Int64("httpservertimeout"); err == nil {
 		// 	HttpServerTimeOut = timeout
 		// }

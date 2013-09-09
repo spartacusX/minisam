@@ -7,13 +7,6 @@ import (
 	conf "github.com/spartacusX/minisam/config"
 )
 
-type SWCounter struct {
-	Id              int
-	Model           string
-	LicenseNum      int
-	InstallationNum int
-}
-
 type SWStatistic struct {
 	Entitlements        int
 	Licenses            int
@@ -114,41 +107,41 @@ func CounterList() (ctlist []SoftWareCounter, err error) {
 	return p, nil
 }
 
-func AddCounter(c SWCounter) (err error) {
-	db, err := sqlConnect()
-	if err != nil {
-		return err
-	}
+// func AddCounter(c SWCounter) (err error) {
+// 	db, err := sqlConnect()
+// 	if err != nil {
+// 		return err
+// 	}
 
-	defer db.Close()
+// 	defer db.Close()
 
-	//res, err := db.Exec("insert into " + TABLE + " values ( " + c.Id + ", " + c.Model + ", " + c.LicenseNum + ", " c.InstallationNum + ")")
-	res, err := db.Exec("insert into "+TBL_SOFTWARECOUNTER+" values ( ?, ?, ?, ?)", c.Id, c.Model, c.LicenseNum, c.InstallationNum)
-	if err != nil {
-		fmt.Printf("db.Exec failed. %v\n.", err)
-		return err
-	}
+// 	//res, err := db.Exec("insert into " + TABLE + " values ( " + c.Id + ", " + c.Model + ", " + c.LicenseNum + ", " c.InstallationNum + ")")
+// 	res, err := db.Exec("insert into "+TBL_SOFTWARECOUNTER+" values ( ?, ?, ?, ?)", c.Id, c.Model, c.LicenseNum, c.InstallationNum)
+// 	if err != nil {
+// 		fmt.Printf("db.Exec failed. %v\n.", err)
+// 		return err
+// 	}
 
-	rowAffected, _ := res.RowsAffected()
-	fmt.Printf("Affected rows: %v\n", rowAffected)
+// 	rowAffected, _ := res.RowsAffected()
+// 	fmt.Printf("Affected rows: %v\n", rowAffected)
 
-	return nil
-}
+// 	return nil
+// }
 
-func UnlockAmUser(strUser string) (err error) {
-	db, err := sqlConnect()
-	if err != nil {
-		return err
-	}
+// func UnlockAmUser(strUser string) (err error) {
+// 	db, err := sqlConnect()
+// 	if err != nil {
+// 		return err
+// 	}
 
-	defer db.Close()
+// 	defer db.Close()
 
-	fmt.Println(strUser)
-	_, err = db.Exec("update "+TABLE_EMPLDEPT+" set  LoginFailures=0, seLoginStatus=0 where Name=?", strUser)
-	if err != nil {
-		fmt.Printf("db.Exec failed. %v\n.", err)
-		return err
-	}
+// 	fmt.Println(strUser)
+// 	_, err = db.Exec("update "+TABLE_EMPLDEPT+" set  LoginFailures=0, seLoginStatus=0 where Name=?", strUser)
+// 	if err != nil {
+// 		fmt.Printf("db.Exec failed. %v\n.", err)
+// 		return err
+// 	}
 
-	return nil
-}
+// 	return nil
+// }
